@@ -4,16 +4,16 @@ import folium
 import random
 
 # 读取历史轨迹数据（清洗过的真实数据）
-history_file = "/Users/lvsihui/Desktop/BalloonForecast/Datafile/cleaned_balloon_data.csv"  # 替换为你的路径
+history_file = "Datafile/cleaned_balloon_data.csv"  # 替换为你的路径
 df_history = pd.read_csv(history_file)
 
 # 读取预测数据（仅用于未来轨迹）
-forecast_file = "/Users/lvsihui/Desktop/BalloonForecast/Datafile/BalloonForecast.csv"  # 替换为你的路径
+forecast_file = "Datafile/BalloonForecast.csv"  # 替换为你的路径
 df_forecast = pd.read_csv(forecast_file)
 
-dangerous_balloons_file = "/Users/lvsihui/Desktop/BalloonForecast/Datafile/dangerous_balloons.csv"  # Replace with actual path
+dangerous_balloons_file = "Datafile/dangerous_balloons.csv"  # Replace with actual path
 df_dangerous_balloons = pd.read_csv(dangerous_balloons_file)
-affected_aircraft_file = "/Users/lvsihui/Desktop/BalloonForecast/Datafile/affected_aircraft.csv"  # Replace with actual path
+affected_aircraft_file = "Datafile/affected_aircraft.csv"  # Replace with actual path
 df_affected_aircraft = pd.read_csv(affected_aircraft_file)
 
 # 计算地图中心点（所有气球的平均经纬度）

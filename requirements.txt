@@ -7,3 +7,4 @@ seaborn>=0.11.2  # 可选：用于更好的可视化
 scipy>=1.7.1  # XGBoost 可能依赖 scipy
 folium
 flask
+gunicorn
