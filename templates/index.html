@@ -1,11 +1,680 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
-    <title>Balloon Trajectory Visualization</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sihui Lyu - Portfolio</title>
+
+    <!-- Font Awesome 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        /* 全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* 固定导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .navbar a {
+            color: black;
+            text-decoration: none;
+            font-size: 22px;
+            padding: 20px 40px;
+            font-weight: bold;
+            transition: color 0.3s;
+            display: inline-block;
+        }
+
+        /* 悬停时字体变灰 */
+        .navbar a:hover {
+            color: #777;
+        }
+
+        /* 点击时字体变深灰 */
+        .navbar a:active {
+            color: #555;
+        }
+
+        /* 全屏背景 */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: url('static/background.jpg') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            flex-direction: column;
+        }
+
+        /* 居中显示名字 */
+        .hero h1 {
+            font-size: 70px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 22px;
+            margin-top: 10px;
+        }
+
+        /* 社交媒体图标样式 */
+        .social-links {
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 40px; /* 图标大小 */
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+
+        /* 悬停时变亮 */
+        .social-links a:hover {
+            color: rgba(255, 255, 255, 1.0);
+        }
+
+        /* 点击时变灰，表示已访问 */
+        .social-links a:active {
+            color: rgba(200, 200, 200, 1.0);
+        }
+
+        /* 透明下滑箭头 */
+        .scroll-down {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 40px;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            animation: bounce 1.5s infinite;
+            transition: color 0.3s;
+        }
+
+        /* 悬停时箭头变亮 */
+        .scroll-down:hover {
+            color: rgba(255, 255, 255, 1.0);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        /* 内容板块 */
+        section {
+            padding: 120px 10%;
+            min-height: var(--min-height, 100vh); /* 默认 100vh，可以自定义 */
+            background: var(--background, #f4f4f4);
+            position: relative;
+        }
+        section[data-background] {
+            background: url(var(--background)) no-repeat center center/cover;
+        }
+        section:nth-child(even) {
+            background: white;
+        }
+
+        h2 {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: #222;
+        }
+
+        p {
+            font-size: 20px;
+            line-height: 1.8;
+        }
+
+        /* 解决滚动偏移问题 */
+        .anchor {
+            display: block;
+            position: relative;
+            top: -90px;
+            visibility: hidden;
+        }
+       /* Projects Section */
+#projects {
+    padding: 100px 10%;
+    background: url('static/pastel_balloon_background.jpg') no-repeat center center/cover;
+    text-align: center;
+    position: relative;
+}
+
+/* Adding an overlay to improve text readability */
+#projects::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.4);
+    z-index: 0;
+}
+
+.section-title {
+    font-size: 32px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    position: relative;
+    z-index: 1;
+}
+
+/* Project Card */
+.project-card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+    max-width: 900px;
+    margin: auto;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* Project Image */
+.project-image {
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* Project Content */
+.project-content {
+    max-width: 750px;
+    text-align: left;
+}
+
+/* Project Title (Now Black for Better Visibility) */
+.project-title {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: center;
+    color: black; /* Ensures title is fully readable */
+}
+
+/* Project Details */
+.project-content p {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #333;
+    text-align: center;
+}
+
+/* Project List */
+.project-content ul {
+    text-align: left;
+    font-size: 16px;
+    line-height: 1.6;
+    padding-left: 20px;
+    color: #444;
+}
+
+/* Project Footer Text */
+.project-footer-text {
+    font-size: 16px;
+    color: #777;
+    text-align: center;
+    margin-top: 15px;
+}
+
+/* View Project Button - White with Soft Border */
+/* View Project Button - Elegant White with Soft Blue Outline */
+/* Center Button */
+/* Center Button */
+.btn {
+    display: block; /* Ensures it behaves as a block-level element */
+    width: fit-content; /* Makes it only as wide as the text */
+    margin: 20px auto; /* Automatically centers horizontally */
+    padding: 12px 30px;
+    font-size: 18px;
+    background: white;
+    color: #0056b3;
+    border: 2px solid #0056b3;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Button Hover Effect */
+.btn:hover {
+    background: #0056b3;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+/* Button Active Effect */
+.btn:active {
+    transform: scale(0.98);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+   /* About Me Section */
+#about {
+    padding: 80px 10%;
+    background: #f4f4f4;
+    text-align: center;
+}
+
+/* About Me Container */
+.about-container {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    width: 100%;
+    margin: auto;
+    flex-direction: column;
+}
+
+/* Profile Section */
+.profile-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Profile Picture */
+.profile-pic {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #007bff;
+    margin-bottom: 10px;
+}
+
+/* Subtitle */
+.subtitle {
+    font-size: 18px;
+    color: #555;
+}
+
+/* About Me Content */
+.about-content {
+    text-align: center;
+    max-width: 700px;
+    margin: auto;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+/* Section Titles */
+.section-title {
+    font-size: 28px;
+    margin: 40px 0 20px;
+    color: #222;
+}
+
+/* Experience Container */
+.experience-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Experience Cards */
+.experience-card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    max-width: 400px;
+    width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover Effect */
+.experience-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Experience Titles */
+.experience-card h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+/* Experience Details */
+.experience-card p {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Experience Bullet Points */
+.experience-card ul {
+    font-size: 14px;
+    line-height: 1.6;
+    padding-left: 20px;
+    color: #333;
+}
+
+    /* Resume Section */
+#resume {
+    padding: 100px 10%;
+    background: #ffffff;
+    text-align: center;
+}
+
+/* Resume Viewer Container */
+.resume-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+/* Embedded Resume Preview */
+.resume-viewer {
+    width: 80%;
+    height: 1200px; /* Adjust height based on preference */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Download Button */
+.btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 25px;
+    font-size: 20px;
+    background: #007bff;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #0056b3;
+}
+/* Contact Section Styling */
+#contact {
+    padding: 100px 10%;
+    background: #f8f9fa; /* Light background for contrast */
+    text-align: center;
+}
+
+/* Contact Container */
+.contact-container {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+    max-width: 660px;
+    margin: auto;
+    text-align: center;
+}
+
+/* Contact Heading */
+.contact-container h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Contact Text */
+.contact-container p {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+/* Email Link */
+.email-link {
+    font-size: 20px;
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+/* Hover Effect on Email */
+.email-link:hover {
+    color: #0056b3;
+}
+
+/* Social Media Links */
+.social-links {
+    margin-top: 15px;
+}
+
+.social-links a {
+    display: inline-block;
+    font-size: 18px;
+    color: #333;
+    text-decoration: none;
+    margin: 0 15px;
+    transition: color 0.3s ease;
+}
+
+/* Social Media Icons */
+.social-links i {
+    margin-right: 5px;
+    font-size: 22px;
+}
+
+/* Hover Effect on Social Links */
+.social-links a:hover {
+    color: #007bff;
+}
+
+    </style>
 </head>
 <body>
-    <h1>Balloon Trajectory Prediction</h1>
-    <p>Click below to view the interactive map:</p>
-    <a href="/map">View Map</a>
+
+    <!-- 固定悬浮导航栏 -->
+    <div class="navbar">
+        <a href="#about">About Me</a>
+        <a href="#projects">Balloon Trajectory Prediction Project</a>
+        <a href="#resume">Resume</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <!-- 主页封面 -->
+    <div class="hero">
+        <h1>Sihui Lyu</h1>
+        <p>Master's in Computer Science | Data Analyst | Machine Learning Enthusiast</p>
+
+        <!-- 社交媒体图标 -->
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/sihuilyu/" target="_blank">
+                <i class="fa-brands fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/BeautySharon" target="_blank">
+                <i class="fa-brands fa-github"></i>
+            </a>
+        </div>
+
+        <!-- 透明下拉箭头 -->
+        <div class="scroll-down" onclick="scrollToSection('about')">⌄</div>
+    </div>
+
+    <!-- About Me, Education & Experience Section -->
+<section id="about" >
+    <div class="about-container">
+        <!-- Profile Picture -->
+        <div class="profile-section">
+            <img src="static/profile.jpg" alt="Sihui Lyu" class="profile-pic">
+            <h2>Sihui Lyu</h2>
+            <p class="subtitle">Master's in Computer Science | Software Engineer | Machine Learning Enthusiast</p>
+        </div>
+
+        <!-- About Me Content -->
+        <div class="about-content">
+            <p>
+                Hi! I'm <strong>Sihui Lyu</strong>, a Master's student in Computer Science passionate about 
+                <strong>software development, data analysis, and machine learning.</strong>  
+                I am proficient in <strong>Java and Python</strong> and have experience working with 
+                <strong>LSTMs</strong> for predicting balloon trajectories.  
+            </p>
+        </div>
+    </div>
+
+    <!-- Education Section -->
+    <h2 class="section-title">🎓 Education</h2>
+    <div class="experience-container">
+        <div class="experience-card">
+            <h3>📖 Northeastern University</h3>
+            <p><strong>Master’s in Computer Science</strong> (Expected 2025)</p>
+        </div>
+
+        <div class="experience-card">
+            <h3>📖 [Your Previous University]</h3>
+            <p><strong>Bachelor’s in [Your Major]</strong> (Year Graduated)</p>
+        </div>
+    </div>
+
+    <!-- Work Experience Section -->
+    <h2 class="section-title">💼 Work Experience</h2>
+    <div class="experience-container">
+        <div class="experience-card">
+            <h3>💼 Data Analyst</h3>
+            <p><strong>[Your Previous Company]</strong> (2.5 years)</p>
+            <ul>
+                <li>Developed Python tools for generating data reports and optimizing business decisions.</li>
+                <li>Worked with SQL, Pandas, and NumPy to process and analyze transportation data.</li>
+            </ul>
+        </div>
+
+        <div class="experience-card">
+            <h3>💼 Software Engineer Intern</h3>
+            <p><strong>[Company Name]</strong> (Internship Duration)</p>
+            <ul>
+                <li>Built backend services for real-time data processing and visualization.</li>
+                <li>Worked on integrating APIs for data retrieval and storage.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+   <!-- Projects Section -->
+<section id="projects" style="--background: url('static/pastel_balloon_background.jpg');">
+    <h2 class="section-title">🎈 Balloon Trajectory Prediction Project</h2>
+
+    <!-- Project Card -->
+    <div class="project-card">
+        <!-- Project Image -->
+        <img src="static/balloon_project.jpg" alt="Balloon Trajectory Visualization" class="project-image">
+
+        <!-- Project Details -->
+        <div class="project-content">
+            <h3 class="project-title">Machine Learning-Based Balloon Trajectory Prediction & Airspace Safety System</h3>
+            <p>
+                This project builds a comprehensive <strong>real-time balloon trajectory prediction 
+                and airspace safety monitoring system</strong> using live data from 
+                <strong>Windborne Systems</strong> and the <strong>OpenSky Network</strong>.
+            </p>
+
+            <ul>
+                <li><strong>📊 Data Processing:</strong> Retrieves 24-hour balloon position data via APIs, interpolates missing timestamps, and applies the <strong>Haversine formula</strong> for speed calculation.</li>
+                <li><strong>🤖 Machine Learning:</strong> Utilizes a <strong>Random Forest Regressor</strong> to predict future balloon speed & direction, incorporating wind speed analysis.</li>
+                <li><strong>✈️ Collision Detection:</strong> Implements a <strong>KD-tree algorithm</strong> to identify potential airspace hazards between balloons and aircraft.</li>
+                <li><strong>🌍 Interactive Visualization:</strong> Features a real-time map displaying <strong>historical trajectories, predicted paths, and potential collision zones</strong>.</li>
+                <li><strong>🔎 Applications:</strong> Meteorology, unmanned balloon navigation, and airspace safety management.</li>
+            </ul>
+
+            <p class="project-footer-text">Please open the link below to see the web application</p>
+            
+            <!-- Project Link Button -->
+            <a href="static/Balloon_History_And_Prediction.html" class="btn">🔗 View Project</a>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Resume Section -->
+    <section id="resume">
+    <div class="anchor" id="resume-anchor"></div>
+    <h2>Resume</h2>
+    
+    <p>View my latest resume below. Click the button to download it in PDF format.</p>
+    
+    <!-- Resume Viewer -->
+    <div class="resume-container">
+        <iframe src="static/Sihui_Lyu_Resume.pdf" class="resume-viewer"></iframe>
+    </div>
+
+    <!-- Download Button -->
+    <a href="{{ url_for('static', filename='Sihui_Lyu_Resume.pdf') }}" class="btn" download>📄 Download Resume</a>
+    </section>
+
+
+    <!-- Contact Section -->
+<section id="contact" style="--min-height: 40vh;">
+    <div class="contact-container">
+        <h2>📬 Contact Me</h2>
+        <p>If you’d like to get in touch, feel free to reach out via email or connect on social media.</p>
+        
+        <!-- Email -->
+        <p class="email">
+            📧 <a href="mailto:sihuilyu@outlook.com" class="email-link">sihuilyu@outlook.com</a>
+        </p>
+
+        <!-- Social Links -->
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/sihuilyu/" target="_blank">
+                <i class="fa-brands fa-linkedin"></i> LinkedIn
+            </a>
+            <a href="https://github.com/BeautySharon" target="_blank">
+                <i class="fa-brands fa-github"></i> GitHub
+            </a>
+        </div>
+    </div>
+</section>
+
+    <!-- JavaScript 处理平滑滚动 -->
+    <script>
+        function scrollToSection(id) {
+            let target = document.getElementById(id + "-anchor");
+            if (target) {
+                window.scrollTo({
+                    top: target.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    </script>
+
 </body>
 </html>

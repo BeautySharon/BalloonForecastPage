@@ -8,3 +8,4 @@ scipy>=1.7.1  # XGBoost 可能依赖 scipy
 folium
 flask
 gunicorn
+requests
