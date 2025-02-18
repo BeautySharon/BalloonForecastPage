@@ -749,10 +749,10 @@
                 and airspace safety monitoring system</strong> by integrating live data from multiple sources, including:
                 <strong>Windborne Systems</strong>, <strong>OpenSky Network</strong>, <strong>OpenWeather API</strong>,
                 <strong>OpenStreetMap API</strong>, <strong>and FAA Special Use Airspace Data</strong>.
-                The system dynamically updates every hour, ensuring continuous balloon and aircraft tracking.
+                The system dynamically updates every hour, ensuring continuous balloon flight tracking.
             </p>
             <ul class="project-features">
-                <li><strong>Real-Time Data Processing:</strong> Collects and processes <strong>the past 24 hours of balloon flight history</strong>, filters corrupted data, removes invalid records, and interpolates missing timestamps.</li>
+                <li><strong>Real-Time Data Processing:</strong> Collects and processes <strong>the past 24 hours of balloon flight history</strong>, filters corrupted data, removes invalid records, and interpolates missing timestamps using <strong>Pandas and NumPy</strong>.</li>
                 <li><strong>Weather Integration:</strong> Retrieves <strong>wind speed and direction</strong> from the <strong>OpenWeather API</strong> and integrates this data into balloon trajectory predictions to enhance accuracy.</li>
                 <li><strong>Machine Learning-Based Trajectory Prediction:</strong> Implements a <strong>Random Forest Regressor</strong> trained on historical balloon data and wind conditions to forecast <strong>future balloon speed and direction</strong> over the next few hours.</li>
                 <li><strong>Airspace Collision Detection & Risk Identification:</strong>
@@ -767,10 +767,10 @@
                     <ul>
                         <li>The homepage displays <strong>all detected dangerous balloons</strong>, each marked with a distinct <strong>color-coded risk indicator</strong>:
                             <ul>
-                                <li><span style="color: red; font-size: 12px;">⬤</span> <strong>Red</strong>: Balloon near an aircraft (potential collision risk).</li>
-                                <li><span style="color: orange; font-size: 12px;">⬤</span> <strong>Blue</strong>: Balloon entering a military base airspace.</li>
-                                <li><span style="color: green; font-size: 12px;">⬤</span> <strong>Green</strong>: Balloon inside a restricted FAA no-fly zone.</li>
-                                <li><span style="color: blue; font-size: 12px;">⬤</span> <strong>Orange</strong>: Balloon that has crossed an international border.</li>
+                                <li><span style="color: pink; font-size: 12px;">⬤</span> <strong>Pink</strong>: Balloon near an aircraft (potential collision risk).</li>
+                                <li><span style="color: orange; font-size: 12px;">⬤</span> <strong>Orange</strong>: Balloon entering a military base airspace.</li>
+                                <li><span style="color: purple; font-size: 12px;">⬤</span> <strong>Purple</strong>: Balloon inside a restricted FAA no-fly zone.</li>
+                                <li><span style="color: yellow; font-size: 12px;">⬤</span> <strong>Yellow</strong>: Balloon that has crossed an international border.</li>
                             </ul>
                         </li>
                         <li>On the top right corner, a <strong>search bar</strong> enables users to <strong>quickly locate specific balloons</strong> by ID.</li>
@@ -779,7 +779,13 @@
                                 <li><strong>Show All</strong>: Displays the paths of all detected balloons.</li>
                                 <li><strong>Hide All</strong>: Hides all balloon paths from view.</li>
                             </ul>
+                            <em>Note: Due to algorithmic limitations, toggling these options may take some time to process.</em>
                         <li>Beside these buttons, a <strong>filter panel</strong> enables users to select specific balloons to display their <strong>past, current, and predicted future trajectories</strong> in real-time.</li>
+                            <ul>
+                                <li><span style="color: blue; font-size: 12px;">⬤</span> <strong>Blue</strong>: Start postion of the balloon.</li>
+                                <li><span style="color: green; font-size: 12px;">⬤</span> <strong>Green</strong>: Current postion of the balloon.</li>
+                                <li><span style="color: red; font-size: 12px;">⬤</span> <strong>Red</strong>: Predicted postion of the balloon.</li>
+                            </ul>
                     </ul>
                 </li>
                 <li><strong>Automated Updates & Continuous Monitoring:</strong> The system uses <strong>APScheduler</strong> within Flask to <strong>automate data retrieval, processing, and updates</strong> every hour, ensuring that the latest balloon and aircraft tracking information is always available.</li>

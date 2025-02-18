@@ -41,9 +41,9 @@ def Step6_visualizemap():
     # 遍历危险气球并标记
     # Define color mapping for fixed risk categories
     risk_color_map = {
-        "Near Aircraft": "red",          # High Risk - Red
+        "Near Aircraft": "pink",          # High Risk - Red
         "Near Military Base": "orange",    # Military Zone - orange
-        "In No-Fly Zone": "lightgreen",      # No-Fly Zone - lightgreen
+        "In No-Fly Zone": "purple",      # No-Fly Zone - lightgreen
     }
 
     # Function to determine the marker color dynamically
@@ -54,8 +54,8 @@ def Step6_visualizemap():
         - Uses predefined color mapping for other risks.
         """
         if re.match(r"Entered .+ from .+", risk_text):  # Detects country entry format
-            return "blue"  # 🟠 Assign orange for border crossing risk
-        return risk_color_map.get(risk_text, "blue")  # 
+            return "yellow"  # 🟠 Assign orange for border crossing risk
+        return risk_color_map.get(risk_text, "white")  # 
 
     for _, row in df_dangerous_balloons.iterrows():
         risk_info = f"⚠ Dangerous Balloon {row['balloon_id']}<br>Risk: {row['risk']}"
@@ -166,18 +166,32 @@ def Step6_visualizemap():
     }
     </script>
     """
-
     legend_html = """
     <div style="position: fixed; bottom: 40px; left: 10px; z-index:9999; 
-                background:white; padding:10px; border-radius:8px; 
-                box-shadow: 2px 2px 10px rgba(0,0,0,0.3); font-size:14px;">
-        <b>🛑 Balloon Risk Legend</b><br>
-        <i class="fa fa-map-marker fa-2x" style="color:red"></i> Near Aircraft <br>
-        <i class="fa fa-map-marker fa-2x" style="color:lightgreen"></i> In No-Fly Zone <br>
-        <i class="fa fa-map-marker fa-2x" style="color:orange"></i> Near Military Base <br>
-        <i class="fa fa-map-marker fa-2x" style="color:blue"></i> Entered Another Country <br>
+                display: flex; flex-direction: column; gap: 8px;">
+        
+        <div style="background:white; padding:10px; border-radius:8px; 
+                    box-shadow: 2px 2px 10px rgba(0,0,0,0.3); font-size:14px;">
+            <b>📍 Balloon Position Legend</b><br>
+            <i class="fa fa-map-marker fa-2x" style="color:lightblue"></i> Start Position <br>
+            <i class="fa fa-map-marker fa-2x" style="color:lightgreen"></i> Current Position <br>
+            <i class="fa fa-map-marker fa-2x" style="color:red"></i> Predicted Position <br>
+        </div>
+
+        <div style="background:white; padding:10px; border-radius:8px; 
+                    box-shadow: 2px 2px 10px rgba(0,0,0,0.3); font-size:14px;">
+            <b>⚠️ Balloon Risk Legend</b><br>
+            <i class="fa fa-map-marker fa-2x" style="color:pink"></i> Near Aircraft <br>
+            <i class="fa fa-map-marker fa-2x" style="color:purple"></i> In No-Fly Zone <br>
+            <i class="fa fa-map-marker fa-2x" style="color:orange"></i> Near Military Base <br>
+            <i class="fa fa-map-marker fa-2x" style="color:yellow"></i> Entered Another Country <br>
+        </div>
+        
     </div>
     """
+
+
+
     layer_control_buttons = """
     <div style="position: fixed; top: 60px; right: 300px; z-index:9999; 
                 background:white; padding:8px; border-radius:8px; 
@@ -221,4 +235,3 @@ def Step6_visualizemap():
     # Output map path
     print(f"Interactive map generated: {map_path}")
     print("Step6_visualizemap Completed")
-    
