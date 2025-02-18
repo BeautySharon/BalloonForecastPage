@@ -24,7 +24,7 @@ def update_data():
     
 # Set up scheduler
 scheduler = BackgroundScheduler()
-scheduler.add_job(update_data, 'interval', minutes=1)  # Runs every hour
+scheduler.add_job(update_data, 'interval', hours=24)  # Runs every hour
 scheduler.start()
 
 # Path to generated map file
