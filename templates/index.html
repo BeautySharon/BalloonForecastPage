@@ -188,7 +188,7 @@
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
-    max-width: 900px;
+    max-width: 1200px;
     margin: auto;
     text-align: left;
     display: flex;
@@ -215,7 +215,7 @@
 
 /* Project Content */
 .project-content {
-    max-width: 750px;
+    max-width: 1000px;
     text-align: left;
 }
 
@@ -320,11 +320,11 @@
 
 /* Profile Picture */
 .profile-pic {
-    width: 140px;
-    height: 140px;
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
     object-fit: cover;
-    border: 4px solid #007bff;
+    border: 4px solid #EAEAEA;
     margin-bottom: 10px;
 }
 
@@ -353,7 +353,7 @@
 /* Experience Container */
 .experience-container {
     display: flex;
-    justify-content: space-between; /* 让卡片之间有间距 */
+    justify-content: center; /* 让卡片之间有间距 */
     gap: 20px; /* 控制间距 */
     flex-wrap: wrap; /* 在屏幕变小时换行 */
 }
@@ -388,12 +388,14 @@
 .experience-card h3 {
     font-size: 20px;
     margin-bottom: 5px;
+    text-align: center; /* Centers the text */
 }
 
 /* Experience Details */
 .experience-card p {
     font-size: 16px;
     color: #555;
+    text-align: center; /* Centers the text */
 }
 
 /* Experience Bullet Points */
@@ -419,18 +421,21 @@
 .experience-card1:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    
 }
 
 /* Experience Titles */
 .experience-card1 h3 {
     font-size: 20px;
     margin-bottom: 5px;
+    text-align: center;
 }
 
 /* Experience Details */
 .experience-card1 p {
     font-size: 16px;
     color: #555;
+    text-align: center;
 }
 
 /* Experience Bullet Points */
@@ -647,7 +652,7 @@
 
     <!-- 主页封面 -->
     <div class="hero">
-        <h1>Sihui Lyu</h1>
+        <h1>Sihui (Sharon) Lyu</h1>
         <p>Master's in Computer Science | Software Engineer | Machine Learning Enthusiast</p>
 
         <!-- 社交媒体图标 -->
@@ -677,12 +682,12 @@
         <!-- About Me Content -->
         <div class="about-content">
             <p>
-                Hi! I'm <strong>Sihui Lyu</strong>, a Master's student in Computer Science at Northeastern University, 
-                currently based in Santa Clara. I'm passionate about 
+                Hi! I'm <strong>Sihui Lyu</strong>, a Master's student in Computer Science at Northeastern University. 
+                I currently live in Santa Clara, CA. I'm passionate about 
                 <strong>software development, data analysis, and machine learning.</strong>  
                 I am proficient in <strong>Java, Python, and SQL</strong> and have experience working with 
-                <strong>React and AWS.</strong>I'm actively seeking a <strong>software engineer intern</strong> role in the Bay Area or a fully remote 
-                position!
+                <strong>React and AWS.</strong> I'm actively seeking a <strong>software engineer intern</strong> role in the Bay Area or a fully remote 
+                position now!
             </p>
         </div>        
     </div>
@@ -720,6 +725,7 @@
 
         <div class="experience-card1">
             <h3>Supply Chain Intern</h3>
+            <h3>(machine learning oriented)</h3>
             <p><strong>Athersys</strong></p>
             <p>02/2021 - 08/2021</p>
         </div>
@@ -739,26 +745,59 @@
         <div class="project-content">
             <h3 class="project-title">Live Balloon Tracking & Airspace Safety System</h3>
             <p class="project-description">
-                This project builds a comprehensive <strong>real-time balloon tracking, trajectory prediction, 
-                and airspace safety monitoring system</strong> by integrating live data from 
-                <strong>Windborne Systems</strong>, <strong>OpenSky Network</strong>, and <strong>OpenWeather API</strong>.
-                The system dynamically updates every hour, ensuring the latest balloon and aircraft tracking data.
+                This project develops a <strong>real-time balloon tracking, trajectory prediction, 
+                and airspace safety monitoring system</strong> by integrating live data from multiple sources, including:
+                <strong>Windborne Systems</strong>, <strong>OpenSky Network</strong>, <strong>OpenWeather API</strong>,
+                <strong>OpenStreetMap API</strong>, <strong>and FAA Special Use Airspace Data</strong>.
+                The system dynamically updates every hour, ensuring continuous balloon and aircraft tracking.
             </p>
-        
-            <ul>
-                <li><strong>Real-Time Data Processing:</strong> Retrieves the past <strong>24-hour balloon flight history</strong>, filters corrupted data, and interpolates missing timestamps.</li>
-                <li><strong>Weather Integration:</strong> Incorporates <strong>OpenWeather API</strong> data to enhance trajectory predictions based on wind speed and direction.</li>
-                <li><strong>Machine Learning:</strong> Uses a <strong>Random Forest Regressor</strong> to predict future balloon <strong>speed & direction</strong> based on historical flight data.</li>
-                <li><strong>Airspace Collision Detection:</strong> Implements a <strong>KD-tree nearest-neighbor search</strong> to identify potential conflicts between balloons and aircraft.</li>
-                <li><strong>Interactive Visualization:</strong> Displays a real-time map with <strong>live balloon trajectories, predicted future paths, and identified risk zones</strong>.</li>
-                <li><strong>Automated Updates:</strong> Uses a <strong>Flask cron job</strong> to refresh live data every hour, ensuring continuous tracking.</li>
-                <li><strong>Deployment:</strong> Hosted online using <strong>FlaskDeploy</strong>, making the system publicly accessible with real-time updates.</li>
-                <li><strong>Applications:</strong> Enhances <strong>aviation safety</strong>, aids <strong>meteorological research</strong>, and improves <strong>unmanned balloon navigation</strong>.</li>
+            <ul class="project-features">
+                <li><strong>Real-Time Data Processing:</strong> Collects and processes <strong>the past 24 hours of balloon flight history</strong>, filters corrupted data, removes invalid records, and interpolates missing timestamps.</li>
+                <li><strong>Weather Integration:</strong> Retrieves <strong>wind speed and direction</strong> from the <strong>OpenWeather API</strong> and integrates this data into balloon trajectory predictions to enhance accuracy.</li>
+                <li><strong>Machine Learning-Based Trajectory Prediction:</strong> Implements a <strong>Random Forest Regressor</strong> trained on historical balloon data and wind conditions to forecast <strong>future balloon speed and direction</strong> over the next few hours.</li>
+                <li><strong>Airspace Collision Detection & Risk Identification:</strong>
+                    <ul>
+                        <li>Uses <strong>KD-Tree nearest-neighbor search</strong> to detect potential <strong>airspace conflicts</strong> between balloons and aircraft.</li>
+                        <li>Flags balloons flying <strong>too close to military bases</strong> based on OpenStreetMap data.</li>
+                        <li>Checks for balloons entering <strong>FAA no-fly zones</strong> and restricted airspaces.</li>
+                        <li>Monitors and identifies balloons that have <strong>crossed national borders</strong>, marking potential security risks.</li>
+                    </ul>
+                </li>
+                <li><strong>Interactive Map Visualization:</strong> 
+                    <ul>
+                        <li>The homepage displays <strong>all detected dangerous balloons</strong>, each marked with a distinct <strong>color-coded risk indicator</strong>:
+                            <ul>
+                                <li><span style="color: red; font-size: 12px;">⬤</span> <strong>Red</strong>: Balloon near an aircraft (potential collision risk).</li>
+                                <li><span style="color: orange; font-size: 12px;">⬤</span> <strong>Blue</strong>: Balloon entering a military base airspace.</li>
+                                <li><span style="color: green; font-size: 12px;">⬤</span> <strong>Green</strong>: Balloon inside a restricted FAA no-fly zone.</li>
+                                <li><span style="color: blue; font-size: 12px;">⬤</span> <strong>Orange</strong>: Balloon that has crossed an international border.</li>
+                            </ul>
+                        </li>
+                        <li>On the top right corner, a <strong>search bar</strong> enables users to <strong>quickly locate specific balloons</strong> by ID.</li>
+                        <li>Below the search bar, there are two <strong>filter buttons</strong> allow users to control the display of balloon trajectories:
+                            <ul>
+                                <li><strong>Show All</strong>: Displays the paths of all detected balloons.</li>
+                                <li><strong>Hide All</strong>: Hides all balloon paths from view.</li>
+                            </ul>
+                        <li>Beside these buttons, a <strong>filter panel</strong> enables users to select specific balloons to display their <strong>past, current, and predicted future trajectories</strong> in real-time.</li>
+                    </ul>
+                </li>
+                <li><strong>Automated Updates & Continuous Monitoring:</strong> The system uses <strong>APScheduler</strong> within Flask to <strong>automate data retrieval, processing, and updates</strong> every hour, ensuring that the latest balloon and aircraft tracking information is always available.</li>
+                <li><strong>Deployment & Accessibility:</strong> Hosted online using <strong>FlaskDeploy</strong>, making the system <strong>publicly accessible</strong> with real-time updates.</li>
+                <li><strong>Applications & Impact:</strong> 
+                    <ul>
+                        <li>Enhances <strong>aviation safety</strong> by preventing potential airspace conflicts.</li>
+                        <li>Aids <strong>meteorological research</strong> through real-time high-altitude tracking.</li>
+                        <li>Supports <strong>unmanned balloon navigation</strong> for scientific and commercial applications.</li>
+                    </ul>
+                </li>
             </ul>
-
-            <p class="project-footer-text"></strong>Please open the link below to see the web application!👇</strong></p>
-            
-            </div>
+        
+            <p class="project-footer-text">
+                <strong>Explore the web application live! Click the link below 👇</strong>
+            </p>
+        </div>
+        
         <div className="button-container">
             <!-- Project Link Button -->
             <a href="static/Balloon_History_And_Prediction.html" class="dark-button">View Project</a>
@@ -791,7 +830,7 @@
         <p>If you'd like to get in touch, feel free to email me or connect with me on LinkedIn!</p>
         <!-- Email -->
         <p class="email">
-            <a href="mailto:sihuilyu@outlook.com" class="email-link">sihuilyu@outlook.com</a>
+            <a href="mailto:lyu.sihui96@gmail.com" class="email-link">lyu.sihui96@gmail.com</a>
         </p>
 
         <!-- Social Links -->

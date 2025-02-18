@@ -2,6 +2,7 @@
 import pandas as pd
 import folium
 import random
+import re
 
 def Step6_visualizemap():
     print("Step6: Visualizing Map")
@@ -30,13 +31,47 @@ def Step6_visualizemap():
     colors = [f"#{random.randint(0, 255):02x}{random.randint(0, 255):02x}{random.randint(0, 255):02x}" for _ in balloon_ids]
     color_map = dict(zip(balloon_ids, colors))
 
-    # Display dangerous balloons
+    # # Display dangerous balloons
+    # for _, row in df_dangerous_balloons.iterrows():
+    #     folium.Marker(
+    #         [row["latitude"], row["longitude"]],
+    #         popup=f"⚠ Dangerous Balloon {row['balloon_id']}<br>Closest Aircraft Distance: {row['closest_aircraft_distance_km']:.2f} km",
+    #         icon=folium.Icon(color="red", icon="exclamation-triangle"),
+    #     ).add_to(m)
+    # 遍历危险气球并标记
+    # Define color mapping for fixed risk categories
+    risk_color_map = {
+        "Near Aircraft": "red",          # High Risk - Red
+        "Near Military Base": "orange",    # Military Zone - orange
+        "In No-Fly Zone": "lightgreen",      # No-Fly Zone - lightgreen
+    }
+
+    # Function to determine the marker color dynamically
+    def get_risk_color(risk_text):
+        """
+        Assigns a color based on risk type.
+        - Detects dynamic 'Entered X from Y' format for border crossings.
+        - Uses predefined color mapping for other risks.
+        """
+        if re.match(r"Entered .+ from .+", risk_text):  # Detects country entry format
+            return "blue"  # 🟠 Assign orange for border crossing risk
+        return risk_color_map.get(risk_text, "blue")  # 
+
     for _, row in df_dangerous_balloons.iterrows():
+        risk_info = f"⚠ Dangerous Balloon {row['balloon_id']}<br>Risk: {row['risk']}"
+    
+        # 如果是 "Near Aircraft"，添加最近飞机信息
+        if row["risk"] == "Near Aircraft" and pd.notna(row["closest_aircraft_distance_km"]):
+            risk_info += f"<br>Closest Aircraft Distance: {row['closest_aircraft_distance_km']:.2f} km"
+        # Determine marker color dynamically
+        marker_color = get_risk_color(row["risk"])
+        # 添加气球标记
         folium.Marker(
             [row["latitude"], row["longitude"]],
-            popup=f"⚠ Dangerous Balloon {row['balloon_id']}<br>Closest Aircraft Distance: {row['closest_aircraft_distance_km']:.2f} km",
-            icon=folium.Icon(color="red", icon="exclamation-triangle"),
+            popup=risk_info,
+            icon=folium.Icon(color=marker_color, icon="exclamation-triangle"),
         ).add_to(m)
+    
 
     # Display affected aircraft with airplane icons
     for _, row in df_affected_aircraft.iterrows():
@@ -132,7 +167,52 @@ def Step6_visualizemap():
     </script>
     """
 
-    m.get_root().html.add_child(folium.Element(search_js + search_box_html))
+    legend_html = """
+    <div style="position: fixed; bottom: 40px; left: 10px; z-index:9999; 
+                background:white; padding:10px; border-radius:8px; 
+                box-shadow: 2px 2px 10px rgba(0,0,0,0.3); font-size:14px;">
+        <b>🛑 Balloon Risk Legend</b><br>
+        <i class="fa fa-map-marker fa-2x" style="color:red"></i> Near Aircraft <br>
+        <i class="fa fa-map-marker fa-2x" style="color:lightgreen"></i> In No-Fly Zone <br>
+        <i class="fa fa-map-marker fa-2x" style="color:orange"></i> Near Military Base <br>
+        <i class="fa fa-map-marker fa-2x" style="color:blue"></i> Entered Another Country <br>
+    </div>
+    """
+    layer_control_buttons = """
+    <div style="position: fixed; top: 60px; right: 300px; z-index:9999; 
+                background:white; padding:8px; border-radius:8px; 
+                box-shadow: 2px 2px 10px rgba(0,0,0,0.3); font-size:14px;">
+        <button onclick="selectAllLayers()" style="margin-right: 5px;">✅ Show All</button>
+        <button onclick="deselectAllLayers()">❌ Hide All</button>
+    </div>
+    """
+
+    layer_control_js = """
+    <script>
+    function toggleLayers(selectAll) {
+        var checkboxes = document.getElementsByClassName('leaflet-control-layers-selector');
+
+        requestAnimationFrame(() => {
+            for (var i = 0; i < checkboxes.length; i++) {
+                if ((selectAll && !checkboxes[i].checked) || (!selectAll && checkboxes[i].checked)) {
+                    checkboxes[i].click();
+                }
+            }
+        });
+    }
+
+    function selectAllLayers() {
+        toggleLayers(true);
+    }
+
+    function deselectAllLayers() {
+        toggleLayers(false);
+    }
+    </script>
+    """
+
+
+    m.get_root().html.add_child(folium.Element(search_js + search_box_html + legend_html + layer_control_buttons + layer_control_js))
 
     # Save map
     map_path = "static/Balloon_History_And_Prediction.html"  # Replace with your path
@@ -141,3 +221,4 @@ def Step6_visualizemap():
     # Output map path
     print(f"Interactive map generated: {map_path}")
     print("Step6_visualizemap Completed")
+    

@@ -1,0 +1,4 @@
+icao,latitude,longitude,velocity,heading,vertical_rate,on_ground
+8964fe,53.1151,49.9562,27.85,334.86,0.0,False
+a64d4d,38.4466,-75.5828,169.24,208.9,0.33,False
+781b13,53.9078,22.7991,249.6,223.83,0.0,False

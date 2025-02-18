@@ -10,3 +10,5 @@ flask
 gunicorn
 requests
 apscheduler
+shapely
+geopandas
