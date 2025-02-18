@@ -197,7 +197,13 @@
     position: relative;
     z-index: 1;
 }
-
+.project-description {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: left;
+}
 /* Project Image */
 .project-image {
     width: 100%;
@@ -227,7 +233,7 @@
     font-size: 18px;
     line-height: 1.7;
     color: #333;
-    text-align: center;
+    text-align: left;
 }
 
 /* Project List */
@@ -241,10 +247,12 @@
 
 /* Project Footer Text */
 .project-footer-text {
-    font-size: 16px;
-    color: #777;
     text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #777;
     margin-top: 15px;
+    margin-bottom: 20px;
 }
 
 /* View Project Button - White with Soft Border */
@@ -345,13 +353,21 @@
 /* Experience Container */
 .experience-container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
+    justify-content: space-between; /* 让卡片之间有间距 */
+    gap: 20px; /* 控制间距 */
+    flex-wrap: wrap; /* 在屏幕变小时换行 */
+}
+.experience-container1 {
+    display: flex;
+    justify-content: center; /* 让卡片之间有间距 */
+    gap: 20px; /* 控制间距 */
+    flex-wrap: wrap; /* 在屏幕变小时换行 */
 }
 
 /* Experience Cards */
 .experience-card {
+    flex: 1; /* 让每个卡片占据相同的空间 */
+    max-width: 30%; /* 控制卡片最大宽度，保证一行三个 */
     background: #ffffff;
     padding: 20px;
     border-radius: 10px;
@@ -382,6 +398,43 @@
 
 /* Experience Bullet Points */
 .experience-card ul {
+    font-size: 14px;
+    line-height: 1.6;
+    padding-left: 20px;
+    color: #333;
+}
+.experience-card1 {
+    flex: 1; /* 让每个卡片占据相同的空间 */
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    max-width: 400px;
+    width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover Effect */
+.experience-card1:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Experience Titles */
+.experience-card1 h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+/* Experience Details */
+.experience-card1 p {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Experience Bullet Points */
+.experience-card1 ul {
     font-size: 14px;
     line-height: 1.6;
     padding-left: 20px;
@@ -499,6 +552,87 @@
     color: #007bff;
 }
 
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+.dark-button {
+    color: #1f2937; /* text-gray-900 */
+    border: 1px solid #1f2937; /* border-gray-800 */
+    background: transparent;
+    font-size: 1rem; /* text-sm */
+    font-weight: 500; /* font-medium */
+    padding: 10px 20px; /* px-5 py-2.5 */
+    border-radius: 0.5rem; /* rounded-lg */
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.dark-button:hover {
+    background-color: #1f2937; /* hover:bg-gray-900 */
+    color: white; /* hover:text-white */
+}
+
+.dark-button:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(156, 163, 175, 0.5); /* focus:ring-gray-300 */
+}
+
+.dark-button.dark-mode {
+    border-color: #4b5563; /* dark:border-gray-600 */
+    color: #9ca3af; /* dark:text-gray-400 */
+}
+
+.dark-button.dark-mode:hover {
+    background-color: #4b5563; /* dark:hover:bg-gray-600 */
+    color: white; /* dark:hover:text-white */
+}
+
+.dark-button.dark-mode:focus {
+    box-shadow: 0 0 10px rgba(31, 41, 55, 0.5); /* dark:focus:ring-gray-800 */
+}
+.dark-button1 {
+    color: #1f2937; /* text-gray-900 */
+    border: 1px solid #1f2937; /* border-gray-800 */
+    background: transparent;
+    font-size: 1.2rem; /* text-base (从 0.875rem 增加到 1rem) */
+    font-weight: 500; /* font-medium */
+    padding: 12px 24px; /* 增加内边距 px-6 py-3 */
+    border-radius: 0.75rem; /* 增加圆角 rounded-xl */
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+
+.dark-button1:hover {
+    background-color: #1f2937; /* hover:bg-gray-900 */
+    color: white; /* hover:text-white */
+}
+
+.dark-button1:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(156, 163, 175, 0.5); /* focus:ring-gray-300 */
+}
+
+.dark-button1.dark-mode {
+    border-color: #4b5563; /* dark:border-gray-600 */
+    color: #9ca3af; /* dark:text-gray-400 */
+}
+
+.dark-button1.dark-mode:hover {
+    background-color: #4b5563; /* dark:hover:bg-gray-600 */
+    color: white; /* dark:hover:text-white */
+}
+
+.dark-button1.dark-mode:focus {
+    box-shadow: 0 0 10px rgba(31, 41, 55, 0.5); /* dark:focus:ring-gray-800 */
+}
+
+
     </style>
 </head>
 <body>
@@ -514,7 +648,7 @@
     <!-- 主页封面 -->
     <div class="hero">
         <h1>Sihui Lyu</h1>
-        <p>Master's in Computer Science | Data Analyst | Machine Learning Enthusiast</p>
+        <p>Master's in Computer Science | Software Engineer | Machine Learning Enthusiast</p>
 
         <!-- 社交媒体图标 -->
         <div class="social-links">
@@ -543,47 +677,51 @@
         <!-- About Me Content -->
         <div class="about-content">
             <p>
-                Hi! I'm <strong>Sihui Lyu</strong>, a Master's student in Computer Science passionate about 
+                Hi! I'm <strong>Sihui Lyu</strong>, a Master's student in Computer Science at Northeastern University, 
+                currently based in Santa Clara. I'm passionate about 
                 <strong>software development, data analysis, and machine learning.</strong>  
-                I am proficient in <strong>Java and Python</strong> and have experience working with 
-                <strong>LSTMs</strong> for predicting balloon trajectories.  
+                I am proficient in <strong>Java, Python, and SQL</strong> and have experience working with 
+                <strong>React and AWS.</strong>I'm actively seeking a <strong>software engineer intern</strong> role in the Bay Area or a fully remote 
+                position!
             </p>
-        </div>
+        </div>        
     </div>
 
     <!-- Education Section -->
     <h2 class="section-title">🎓 Education</h2>
     <div class="experience-container">
         <div class="experience-card">
-            <h3>📖 Northeastern University</h3>
-            <p><strong>Master’s in Computer Science</strong> (Expected 2025)</p>
+            <h3>Northeastern University</h3>
+            <p><strong>Master’s in Computer Science</strong></p>
+            <p>(Expected 2026)</p>
         </div>
 
         <div class="experience-card">
-            <h3>📖 [Your Previous University]</h3>
-            <p><strong>Bachelor’s in [Your Major]</strong> (Year Graduated)</p>
+            <h3>Case Western Reserve University</h3>
+            <p><strong>Master’s in Operation Research & Supply Chain Management</strong></p>
+            <p>08/2019 - 01/2021</p>
+        </div>
+
+        <div class="experience-card">
+            <h3>Wuhan University of Technology</h3>
+            <p><strong>Bachelor’s in Logistics Engineering</strong></p>
+            <p>09/2015 - 06/2019</p>
         </div>
     </div>
 
     <!-- Work Experience Section -->
     <h2 class="section-title">💼 Work Experience</h2>
-    <div class="experience-container">
-        <div class="experience-card">
-            <h3>💼 Data Analyst</h3>
-            <p><strong>[Your Previous Company]</strong> (2.5 years)</p>
-            <ul>
-                <li>Developed Python tools for generating data reports and optimizing business decisions.</li>
-                <li>Worked with SQL, Pandas, and NumPy to process and analyze transportation data.</li>
-            </ul>
+    <div class="experience-container1">
+        <div class="experience-card1">
+            <h3>Data Analyst</h3>
+            <p><strong>Bettaway</strong></p>
+            <p>09/2021 - 05/2024</p>
         </div>
 
-        <div class="experience-card">
-            <h3>💼 Software Engineer Intern</h3>
-            <p><strong>[Company Name]</strong> (Internship Duration)</p>
-            <ul>
-                <li>Built backend services for real-time data processing and visualization.</li>
-                <li>Worked on integrating APIs for data retrieval and storage.</li>
-            </ul>
+        <div class="experience-card1">
+            <h3>Supply Chain Intern</h3>
+            <p><strong>Athersys</strong></p>
+            <p>02/2021 - 08/2021</p>
         </div>
     </div>
 </section>
@@ -599,26 +737,32 @@
 
         <!-- Project Details -->
         <div class="project-content">
-            <h3 class="project-title">Machine Learning-Based Balloon Trajectory Prediction & Airspace Safety System</h3>
-            <p>
-                This project builds a comprehensive <strong>real-time balloon trajectory prediction 
-                and airspace safety monitoring system</strong> using live data from 
-                <strong>Windborne Systems</strong> and the <strong>OpenSky Network</strong>.
+            <h3 class="project-title">Live Balloon Tracking & Airspace Safety System</h3>
+            <p class="project-description">
+                This project builds a comprehensive <strong>real-time balloon tracking, trajectory prediction, 
+                and airspace safety monitoring system</strong> by integrating live data from 
+                <strong>Windborne Systems</strong>, <strong>OpenSky Network</strong>, and <strong>OpenWeather API</strong>.
+                The system dynamically updates every hour, ensuring the latest balloon and aircraft tracking data.
             </p>
-
+        
             <ul>
-                <li><strong>📊 Data Processing:</strong> Retrieves 24-hour balloon position data via APIs, interpolates missing timestamps, and applies the <strong>Haversine formula</strong> for speed calculation.</li>
-                <li><strong>🤖 Machine Learning:</strong> Utilizes a <strong>Random Forest Regressor</strong> to predict future balloon speed & direction, incorporating wind speed analysis.</li>
-                <li><strong>✈️ Collision Detection:</strong> Implements a <strong>KD-tree algorithm</strong> to identify potential airspace hazards between balloons and aircraft.</li>
-                <li><strong>🌍 Interactive Visualization:</strong> Features a real-time map displaying <strong>historical trajectories, predicted paths, and potential collision zones</strong>.</li>
-                <li><strong>🔎 Applications:</strong> Meteorology, unmanned balloon navigation, and airspace safety management.</li>
+                <li><strong>Real-Time Data Processing:</strong> Retrieves the past <strong>24-hour balloon flight history</strong>, filters corrupted data, and interpolates missing timestamps.</li>
+                <li><strong>Weather Integration:</strong> Incorporates <strong>OpenWeather API</strong> data to enhance trajectory predictions based on wind speed and direction.</li>
+                <li><strong>Machine Learning:</strong> Uses a <strong>Random Forest Regressor</strong> to predict future balloon <strong>speed & direction</strong> based on historical flight data.</li>
+                <li><strong>Airspace Collision Detection:</strong> Implements a <strong>KD-tree nearest-neighbor search</strong> to identify potential conflicts between balloons and aircraft.</li>
+                <li><strong>Interactive Visualization:</strong> Displays a real-time map with <strong>live balloon trajectories, predicted future paths, and identified risk zones</strong>.</li>
+                <li><strong>Automated Updates:</strong> Uses a <strong>Flask cron job</strong> to refresh live data every hour, ensuring continuous tracking.</li>
+                <li><strong>Deployment:</strong> Hosted online using <strong>FlaskDeploy</strong>, making the system publicly accessible with real-time updates.</li>
+                <li><strong>Applications:</strong> Enhances <strong>aviation safety</strong>, aids <strong>meteorological research</strong>, and improves <strong>unmanned balloon navigation</strong>.</li>
             </ul>
 
-            <p class="project-footer-text">Please open the link below to see the web application</p>
+            <p class="project-footer-text"></strong>Please open the link below to see the web application!👇</strong></p>
             
+            </div>
+        <div className="button-container">
             <!-- Project Link Button -->
-            <a href="static/Balloon_History_And_Prediction.html" class="btn">🔗 View Project</a>
-        </div>
+            <a href="static/Balloon_History_And_Prediction.html" class="dark-button">View Project</a>
+        </div> 
     </div>
 </section>
 
@@ -628,7 +772,7 @@
     <div class="anchor" id="resume-anchor"></div>
     <h2>Resume</h2>
     
-    <p>View my latest resume below. Click the button to download it in PDF format.</p>
+    <p>Here is my latest resume. Click the button below👇 to download it in PDF format!</p>
     
     <!-- Resume Viewer -->
     <div class="resume-container">
@@ -636,19 +780,18 @@
     </div>
 
     <!-- Download Button -->
-    <a href="{{ url_for('static', filename='Sihui_Lyu_Resume.pdf') }}" class="btn" download>📄 Download Resume</a>
+    <a href="{{ url_for('static', filename='Sihui_Lyu_Resume.pdf') }}" class="dark-button1" download>Download Resume 📄</a>
     </section>
 
 
     <!-- Contact Section -->
 <section id="contact" style="--min-height: 40vh;">
     <div class="contact-container">
-        <h2>📬 Contact Me</h2>
-        <p>If you’d like to get in touch, feel free to reach out via email or connect on social media.</p>
-        
+        <h2>📧 Contact Me</h2>
+        <p>If you'd like to get in touch, feel free to email me or connect with me on LinkedIn!</p>
         <!-- Email -->
         <p class="email">
-            📧 <a href="mailto:sihuilyu@outlook.com" class="email-link">sihuilyu@outlook.com</a>
+            <a href="mailto:sihuilyu@outlook.com" class="email-link">sihuilyu@outlook.com</a>
         </p>
 
         <!-- Social Links -->
@@ -666,7 +809,7 @@
     <!-- JavaScript 处理平滑滚动 -->
     <script>
         function scrollToSection(id) {
-            let target = document.getElementById(id + "-anchor");
+            let target = document.getElementById(id);
             if (target) {
                 window.scrollTo({
                     top: target.offsetTop - 80,
